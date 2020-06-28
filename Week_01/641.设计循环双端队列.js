@@ -57,7 +57,7 @@
 
 // @lc code=start
 /**
- * 方法二
+ * 方法二 112ms and beats 98.74%
  * 解题思路
  * 定义
  * 1. _deque 一个 k 长度的 数组
@@ -175,12 +175,7 @@ MyCircularDeque.prototype.isFull = function () {
   return this._size === this._capacity;
 };
 
-function moveLeft (i, total) {
-  if (i === 0) {
-    return total - 1;
-  }
-  return i - 1;
-}
+
 
 /**
  * Your MyCircularDeque object will be instantiated and called as such:
