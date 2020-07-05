@@ -9,7 +9,7 @@ class BinaryHeap {
   constructor(capacity, minOrMax) {
     this.heap = new Array(capacity).fill(-1);
     this.size = 0;
-    this.sign = !!minOrMax ? 1 : -1;
+    this.sign = !minOrMax ? 1 : -1;
   }
 
   isEmpty () {
@@ -48,11 +48,11 @@ class BinaryHeap {
     if (this.isEmpty()) {
       throw new Error("Heap is empty, No element to delete");
     }
-    const top = this.heap[x];
+    const deleteEle = this.heap[x];
     this.heap[x] = this.heap[this.size - 1];
     this.size--;
     this._heapifyDown(x);
-    return top;
+    return deleteEle;
   }
 
 
@@ -63,7 +63,7 @@ class BinaryHeap {
   _heapifyUp (i) {
     const addVal = this.heap[i];
     // 如果比父节点大，就跟父节点交换
-    while (i > 0 && this.sign * (addVal - this.heap[this._parent(i)]) < 0) {
+    while (i > 0 && this.sign * (addVal - this.heap[this._parent(i)]) > 0) {
       this.heap[i] = this.heap[this._parent(i)];
       i = this._parent(i);
     }
@@ -78,8 +78,8 @@ class BinaryHeap {
     let child, temp = this.heap[i];
     while (this._kthChild(i, 1) < this.size) {
       // 如果没有子节点中最大的元素大，就交换，否则退出。
-      child = this._maxChild(i);
-      if (this.sign * (temp - this.heap[child]) <= 0) break;
+      child = this._minOrMaxChild(i);
+      if (this.sign * (temp - this.heap[child]) >= 0) break;
 
       this.heap[i] = this.heap[child];
       i = child;
@@ -91,10 +91,10 @@ class BinaryHeap {
    * 获取子元素的最大值的下标
    * @param {Number} i 
    */
-  _maxChild (i) {
+  _minOrMaxChild (i) {
     let leftChild = this._kthChild(i, 1);
     let rightChild = this._kthChild(i, 2);
-    return this.heap[leftChild] > this.heap[rightChild] ? leftChild : rightChild;
+    return this.sign * (this.heap[leftChild] - this.heap[rightChild]) > 0 ? leftChild : rightChild;
   }
 
   findTop () {
@@ -106,7 +106,7 @@ class BinaryHeap {
 }
 
 function main () {
-  const maxHeap = new BinaryHeap(10);
+  const maxHeap = new BinaryHeap(10, false);
   maxHeap.add(10);
   maxHeap.add(4);
   maxHeap.add(9);
