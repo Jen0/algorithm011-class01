@@ -70,3 +70,44 @@ class unionFind {
 启发式函数： h(n)，它用来评价哪些结点最有希望的是一个我们要找的结点，h(n) 会返回一个非负实数,也可以认为是从结点 n 的目标结点路径的估计成本。
 
 启发式函数是一种告知搜索方向的方法。它提供了一种明智的方法来猜测哪个邻居结点会导向一个目标。
+
+## AVL 树和红黑树的实现和特性
+
+> AVL 树
+
+- 发明者 G. M. `Adelson-Velsky` 和 `Evgenii Landis`。
+- Balance Factor（平衡因子）：是它的左子树的高度减去它的右子树的高度（有时相反）。balance factor = {-1, 0, 1}。
+- 通过旋转操作来进行平衡（四种）。
+- https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree
+
+旋转操作
+
+1. 左旋
+2. 右旋
+3. 左右旋
+4. 右左旋
+
+AVL 总结
+
+1. 平衡二叉搜索树
+2. 每个结点存 balance factor = {-1, 0, 1}
+3. 四种旋转操作 AVL
+
+总结不足：结点需要存储额外信息、且调整次数频繁
+
+> Red-black Tree
+
+红黑树是一种近似平衡的二叉搜索树（BinarySearch Tree），它能够确保任何一个结点的左右子树的高度差小于两倍。具体来说，红黑树是满足如下五个条件的二叉搜索树：
+
+- 每个结点要么是红色，要么是黑色
+- 根结点是黑色
+- 每个叶结点（NIL 结点，空结点）是黑色的。
+- 不能有相邻接的两个红色结点
+- 从任一结点到其每个叶子的所有路径都包含相同数目的黑色结点。
+
+> AVL 树 和 红黑树 对比
+
+- AVL trees provide `faster lookups` than Red Black Trees because they are `more strictly balanced`.
+- Red Black Trees provide `faster insertion and removal` operations than AVL trees as fewer rotations are done due to relatively relaxed balancing.
+- AVL trees store balance `factors or heights` with each node, thus requires storage for an integer per node whereas Red Black Tree requires only 1 bit of information per node.
+- Red Black Trees are used in most of the `language libraries like map,multimap,multisetin C++` whereas AVL trees are used in `databases` where faster retrievals are required.
